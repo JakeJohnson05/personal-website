@@ -4,9 +4,12 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { LoadingAnimationComponent } from './jcj-common/loading-animation/loading-animation.component';
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoadingAnimationComponent
   ],
   imports: [
     BrowserModule,

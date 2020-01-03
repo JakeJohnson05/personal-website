@@ -28,7 +28,9 @@
 		"@angular/platform-browser-dynamic": "~8.2.13",
 		"@angular/router": "~8.2.13",
 		"@types/node": "^13.1.2",
+		"@types/sequelize": "^4.28.8",
 		"body-parser": "^1.19.0",
+		"chalk": "^3.0.0",
 		"connect-session-sequelize": "^6.0.0",
 		"dotenv": "^8.2.0",
 		"express": "^4.17.1",
@@ -43,7 +45,7 @@
 		"sequelize": "^5.21.3",
 		"tslib": "^1.10.0",
 		"typescript": "^3.7.4",
-		"zone.js": "^0.10.2"
+		"zone.js": "~0.9.1"
 	},
 	"devDependencies": {
 		"@angular-devkit/build-angular": "^0.803.21",
