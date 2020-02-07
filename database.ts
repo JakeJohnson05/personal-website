@@ -1,36 +1,73 @@
 import { Sequelize } from 'sequelize';
-import {  } from 'chalk';
 
-export const SequelizeDatabase = () => {
-	var database: Sequelize;
+// export const SequelizeDatabase = () => {
+// 	var database: Sequelize;
 
-	switch (process.env.NODE_ENV) {
-		case 'production':
-			if (!process.env.JAWSDB_MARIA_URL) throw new Error('JAWSDB MARIA URL for database connection not found');
-			database = new Sequelize(process.env.JAWSDB_MARIA_URL);
-			break;
-		case 'development':
-			if (!process.env.DB_USERNAME) throw new Error('Database username not found');
-			database = new Sequelize(process.env.DB || 'localhost', process.env.DB_USERNAME, process.env.DB_PASSWORD, {
-				host: process.env.DB_HOST,
-				dialect: 'mysql',
-				logging: false,
-				pool: { max: 5, min: 0, acquire: 30000, idle: 10000 }
-			});
-		default:
-			throw new Error('Unknown node environment: ' + process.env.NODE_ENV);
-	}
+// 	switch (process.env.NODE_ENV) {
+// 		case 'production':
+// 			if (!process.env.JAWSDB_MARIA_URL) throw new Error('JAWSDB MARIA URL for database connection not found');
+// 			database = new Sequelize(process.env.JAWSDB_MARIA_URL);
+// 			break;
+// 		case 'development':
+// 			if (!process.env.DB_USERNAME) throw new Error('Database username not found');
+// 			database = new Sequelize(process.env.DB || 'localhost', process.env.DB_USERNAME, process.env.DB_PASSWORD, {
+// 				host: process.env.DB_HOST,
+// 				dialect: 'mysql',
+// 				logging: false,
+// 				pool: { max: 5, min: 0, acquire: 30000, idle: 10000 }
+// 			});
+// 		default: throw new Error('Unknown node environment: ' + process.env.NODE_ENV);
+// 	}
 
-	// Test the established connection
-	database.authenticate()
-		.then(() => console.log('Connection established to database'), (err: any) => console.error('Unable to establish database connection:', err));
+// 	// Test the established connection
+// 	database.authenticate()
+// 		.then(() => console.log('Connection established to database'),
+// 			(err: any) => console.error('Unable to establish database connection:', err)
+// 		);
 
-	// Sync the database
-	database.sync()
-		.then((_: Sequelize) => console.log('Database successfully synced'), (err: any) => console.error('Unable to sync database:', err));
+// 	// Sync the database
+// 	database.sync()
+// 		.then((_: Sequelize) => console.log('Database successfully synced'),
+// 			(err: any) => console.error('Unable to sync database:', err)
+// 		);
 
-	return database;
+// 	return database;
+// }
+
+var sequelize: Sequelize;
+
+switch (process.env.NODE_ENV) {
+	case 'production':
+		if (!process.env.JAWSDB_MARIA_URL) throw new Error('JAWSDB MARIA URL for database connection not found');
+		sequelize = new Sequelize(process.env.JAWSDB_MARIA_URL);
+		break;
+	case 'development':
+		if (!process.env.DB_USERNAME) throw new Error('Database username not found');
+		sequelize = new Sequelize(process.env.DB || 'localhost', process.env.DB_USERNAME, process.env.DB_PASSWORD, {
+			host: process.env.DB_HOST,
+			dialect: 'mysql',
+			logging: false,
+			pool: { max: 5, min: 0, acquire: 30000, idle: 10000 }
+		});
+	default: throw new Error('Unknown node environment: ' + process.env.NODE_ENV);
 }
+
+// Test the established connection
+sequelize.authenticate().then(
+	() => console.log('Connection established to database'),
+	(err: any) => console.error('Unable to establish database connection:', err)
+);
+
+// Sync the database
+sequelize.sync().then(
+	(_: Sequelize) => console.log('Database successfully synced'),
+	(err: any) => console.error('Unable to sync database:', err)
+);
+
+export const database = {
+	sequelize
+}
+
 
 // /** Sequelize is the ORM we are using to interact with the database */
 // export class SequelizeDatabase {

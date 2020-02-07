@@ -16,8 +16,7 @@ import { createServer } from 'http';
 import { json, urlencoded } from 'body-parser';
 
 /** The Sequelize ORM instance to interact with the database */
-import { SequelizeDatabase } from './database';
-const sequelize = SequelizeDatabase();
+import { database } from './database';
 
 /** Establishes session with the client with cookies */
 import * as session from 'express-session';
@@ -49,7 +48,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   store: new SequelizeSessionStore({
-    db: sequelize,
+    db: database.sequelize,
     checkExpirationInterval: msInHour * 96
   }),
   cookie: {
