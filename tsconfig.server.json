@@ -2,12 +2,10 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "module": "CommonJS",
-    "target": "ES5",
-    // "module": "esnext",
-    // "target": "es2015",
-    // "target": "es6",
+    "target": "es6",
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "removeComments": true
   },
   "files": [
     "server.ts",
