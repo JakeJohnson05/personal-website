@@ -7,7 +7,7 @@ import { emailRouter } from './email';
  * This is the api router. It handles requests from the angular client to /api/*
  *
  * uri's are relative to /api/
- * so '/api/email/inquiry' looks like '/email/inquiry' here
+ * so '/api/email' looks like '/email' here
  */
 export const ApiServer = (): Router => {
 	let router = Router();

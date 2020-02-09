@@ -7,6 +7,34 @@ import { body, validationResult } from 'express-validator';
 /** Contains functions which generate email html */
 import { generateInquiryPost } from './email-templates';
 
+/** Custom Transport class for sending emails through nodemailer */
+class MailTransport {
+	/** The nodemailer transport to send the emails */
+	private _transport: Transporter;
+	/** Defaults for sending all emails on this site */
+	private _defaultConfig = {
+		from: `"Jake Johnson" <${process.env.FROM_EMAIL}>`,
+		to: process.env.TO_EMAIL!,
+		attachments: [{
+			filename: 'jakejohnson-logo.png',
+			contentDisposition: 'inline',
+			// TODO: Get actual logo and use path relative to this file
+			path: 'https://www.1080sweep.com/assets/images/logo.png',
+			cid: `jakelogo`
+		}]
+	}
+
+	constructor() {
+		this._transport = createTransport({
+			service: process.env.EMAIL_SERVICE,
+			auth: { user: process.env.FROM_EMAIL, pass: process.env.FROM_EMAIL_PASSWORD }
+		});
+	}
+
+	/** Build and submit the request to send an email */
+	sendMail = (subject: string, html: string): Promise<any> => this._transport.sendMail(Object.assign({}, this._defaultConfig, { subject, html }));
+}
+
 /**
  * This is the email router. It handles the requests for routes email/*
  * On this small app, it just makes the send email contact request
@@ -80,34 +108,4 @@ export const emailRouter = (): Router & { emailTransporter: MailTransport } => {
 	});
 
 	return Object.assign(router, { emailTransporter });
-}
-
-/** Custom Transport class for sending emails through nodemailer */
-class MailTransport {
-	/** The nodemailer transport to send the emails */
-	private _transport: Transporter;
-	/** Defaults for sending all emails on this site */
-	private _defaultConfig = {
-		from: `"Jake Johnson" <${process.env.FROM_EMAIL}>`,
-		to: process.env.TO_EMAIL!,
-		attachments: [{
-			filename: 'jakejohnson-logo.png',
-			contentDisposition: 'inline',
-			path: 'https://www.1080sweep.com/assets/images/logo.png',
-			cid: `jakelogo`
-		}]
-	}
-
-	constructor() {
-		this._transport = createTransport({
-			service: process.env.EMAIL_SERVICE,
-			auth: {
-				user: process.env.FROM_EMAIL,
-				pass: process.env.FROM_EMAIL_PASSWORD
-			}
-		});
-	}
-
-	/** Build and submit the request to send an email */
-	sendMail = (subject: string, html: string): Promise<any> => this._transport.sendMail(Object.assign({}, this._defaultConfig, { subject, html }));
 }
