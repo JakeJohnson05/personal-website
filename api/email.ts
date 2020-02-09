@@ -8,12 +8,10 @@ import { body, validationResult } from 'express-validator';
 import { generateInquiryPost } from './email-templates';
 
 /**
- * 
  * This is the email router. It handles the requests for routes email/*
  * On this small app, it just makes the send email contact request
  * 
- * uri's are relative to `email/*` so `email/contact` looks like `/contact` here
- * 
+ * uri's are relative to `email/*` so `email/inquiry` looks like `/inquiry` here
  */
 export const emailRouter = (): Router & { emailTransporter: MailTransport } => {
 	const emailTransporter = new MailTransport();
@@ -66,13 +64,28 @@ export const emailRouter = (): Router & { emailTransporter: MailTransport } => {
 			} catch (_) { return res.status(200).json({ success: true, emailsSent: 1 }) }
 			return res.status(200).json({ success: true, emailsSent: req.session!.emailsSent });
 		}).catch(() => res.status(501).json('Inquiry submission unsuccessful'))
-	})
+	});
+
+	/**
+ 	 * Check if the current client has an active session and `recently`
+ 	 * sent an email.
+ 	 * 
+ 	 * `Recently` is defined as the session being active. This length is determined
+ 	 * in /app.js
+ 	 */
+	router.get('/quota', (req, res) => {
+		try {
+			res.status(200).json(req.session!.emailsSent || 0)
+		} catch (_) { res.status(200).json(0) }
+	});
 
 	return Object.assign(router, { emailTransporter });
 }
 
 /** Custom Transport class for sending emails through nodemailer */
 class MailTransport {
+	/** The nodemailer transport to send the emails */
+	private _transport: Transporter;
 	/** Defaults for sending all emails on this site */
 	private _defaultConfig = {
 		from: `"Jake Johnson" <${process.env.FROM_EMAIL}>`,
@@ -84,18 +97,17 @@ class MailTransport {
 			cid: `jakelogo`
 		}]
 	}
-	/** The nodemailer transport to send the emails */
-	private _transport: Transporter;
 
 	constructor() {
 		this._transport = createTransport({
 			service: process.env.EMAIL_SERVICE,
-			auth: { user: process.env.FROM_EMAIL, pass: process.env.FROM_EMAIL_PASSWORD }
-		})
+			auth: {
+				user: process.env.FROM_EMAIL,
+				pass: process.env.FROM_EMAIL_PASSWORD
+			}
+		});
 	}
 
 	/** Build and submit the request to send an email */
-	sendMail = (subject: string, html: string): Promise<any> => this._transport.sendMail(
-		Object.assign({}, this._defaultConfig, { subject, html })
-	);
+	sendMail = (subject: string, html: string): Promise<any> => this._transport.sendMail(Object.assign({}, this._defaultConfig, { subject, html }));
 }
