@@ -1,0 +1,22 @@
+div.main-block {
+	min-height: 100vh;
+	display: flex;
+	// position: relative;
+	// overflow: hidden;
+	flex-flow: row nowrap;
+	// right: 0;
+
+	// transition: transform 1s;
+
+	&.open {
+		// transform: translateX(calc(-100%));
+	}
+
+	& > div.main-col {
+		min-width: 100%;
+	}
+	& > div.side-col {
+		max-width: 100%;
+		border: 1px solid #888;
+	}
+}

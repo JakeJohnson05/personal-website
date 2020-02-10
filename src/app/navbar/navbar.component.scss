@@ -1,0 +1,46 @@
+div#navbar {
+	display: flex;
+	position: sticky;
+	top: 0;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	align-items: center;
+	padding: 4px 8px;
+	background: #FFF;
+	
+	& > svg {
+		width: 42px;
+		height: 42px;
+		transition: transform .6s;
+
+		cursor: pointer;
+		@media (max-width: 1550px) { width: 36px }
+		@media (max-width: 520px) { width: 32px }
+		@media (max-width: 300px) { width: 24px }
+		
+		& > path {
+			width: 100%;
+			stroke: currentColor;
+			stroke-width: 10;
+			stroke-linecap: round;
+			position: relative;
+			transition: transform .6s, transform-origin .6s;
+		}
+		&.active {
+			transform: rotate(-90deg);
+
+			& > path:first-child {
+				transform: rotate(45deg);
+				transform-origin: 18% 33%;
+			}
+			& > path:nth-child(2) {
+				transform: scaleX(0);
+				transform-origin: 50%;
+			}
+			& > path:nth-child(3) {
+				transform: rotate(-45deg);
+				transform-origin: 10% 65%;
+			}
+		}
+	}
+}

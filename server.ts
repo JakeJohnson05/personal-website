@@ -16,13 +16,13 @@ import { json, urlencoded } from 'body-parser';
 import { success } from '@codexist/status-reports';
 
 /** The Sequelize ORM instance to interact with the database */
-import { sequelizeDB } from './database';
+// import { sequelizeDB } from './database';
 /** Establishes session with the client with cookies */
 import * as session from 'express-session';
 /** Establishes configuration for cookies on the database side */
-import * as sequelizeStore from 'connect-session-sequelize';
+// import * as sequelizeStore from 'connect-session-sequelize';
 /** The Combined Power of the above two imports to control user sessions */
-const SequelizeSessionStore = sequelizeStore(session.Store);
+// const SequelizeSessionStore = sequelizeStore(session.Store);
 /** Our api to handle contact requests and rate limiting */
 import { ApiServer } from './api/api-control';
 
@@ -44,10 +44,10 @@ app.use(session({
 	secret: process.env.SECRET_KEY!,
 	resave: false,
 	saveUninitialized: false,
-	store: new SequelizeSessionStore({
-		db: sequelizeDB.db,
-		checkExpirationInterval: msInHour * 96
-	}),
+	// store: new SequelizeSessionStore({
+	// 	db: sequelizeDB.db,
+	// 	checkExpirationInterval: msInHour * 96
+	// }),
 	cookie: {
 		sameSite: true,
 		secure: false,

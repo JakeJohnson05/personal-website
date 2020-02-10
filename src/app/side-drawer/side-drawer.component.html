@@ -1,0 +1,4 @@
+<p>side-drawer: {{ drawerState }}</p>
+<div *ngFor="let route of routes">
+	<a [routerLink]="route.path" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">{{ route.title }}</a>
+</div>

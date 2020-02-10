@@ -40,7 +40,7 @@
     "@angular/forms": "~9.0.0",
     "@angular/platform-browser": "~9.0.0",
     "@angular/platform-browser-dynamic": "~9.0.0",
-    "@angular/router": "~9.0.0",
+    "@angular/router": "^9.0.0",
     "@codexist/status-reports": "^3.2.0",
     "@types/node": "^13.7.0",
     "body-parser": "^1.19.0",

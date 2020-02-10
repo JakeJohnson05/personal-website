@@ -1,0 +1,16 @@
+<div [ngClass]="['main-block', drawerState]">
+	<!-- <div class="main-col" [@toggleSideDrawer]="'Main' + drawerState"> -->
+	<div class="main-col">
+		<app-navbar [drawerState]="drawerState" (toggleDrawer)="drawerState = $event"></app-navbar>
+		<div [@routeAnimations]="prepareRoute(outlet)" class="outlet">
+			<router-outlet #outlet="outlet"></router-outlet>
+		</div>
+	</div>
+	<!-- <div class="side-col" [@toggleSideDrawer]="'Side' + drawerState"> -->
+	<div class="side-col" [@toggleSideDrawer]="drawerState">
+		<app-side-drawer [drawerState]="drawerState" [routes]="routes"></app-side-drawer>
+	</div>
+</div>
+<div class="footer" style="background-color: red; height: 10em;">
+	Footer here
+</div>
