@@ -1,0 +1,33 @@
+div.drawer-ctn {
+	background: var(--tertiary);
+	height: 100%;
+	padding: 16px 24px;
+	border-top: 1px solid var(--secondary);
+	// box-shadow: -4px 0 8px var(--tertiary);
+	& > div.routes-ctn {		
+		position: relative;
+		& > a.route, & > a.route:active, & > a.route:visited, & > a.route:focus {
+			display: block;
+			padding: 4px 8px 4px 12px;
+			text-align: right;
+			border-left: 1px solid #FFF0;
+			font-size: 115%;
+			color: var(--secondary);
+			text-decoration: none !important;
+			// background-size: 200% 100%;
+			// background-image: linear-gradient(to right, var(--secondary) 50%, var(--primary) 50%);
+			// linear-gradient(to bottom, var(--tertiary) 50%, #FFF5 50%);
+			transition: /* background-position .5s linear,  */border-left-color .3s linear;
+			// -webkit-background-clip: text, border-box;
+			// background-clip: text, border-box; 
+			// color: transparent;
+		}
+		& > a.route:hover {
+			// background-position: -100% 0;
+			border-left-color: var(--secondary);
+		}
+		& > a.route.active {
+			border-left-color: var(--primary);
+		}
+	}
+}

@@ -1,4 +1,6 @@
-<p>side-drawer: {{ drawerState }}</p>
-<div *ngFor="let route of routes">
-	<a [routerLink]="route.path" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">{{ route.title }}</a>
+<div class="drawer-ctn">
+	<div class="routes-ctn">
+		<a class="route" *ngFor="let route of routes" [routerLink]="route.path" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">{{ route.title }}</a>
+		<div class="active-marker"></div>
+	</div>
 </div>

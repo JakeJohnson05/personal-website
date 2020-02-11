@@ -6,11 +6,10 @@
 			<router-outlet #outlet="outlet"></router-outlet>
 		</div>
 	</div>
-	<!-- <div class="side-col" [@toggleSideDrawer]="'Side' + drawerState"> -->
-	<div class="side-col" [@toggleSideDrawer]="drawerState">
+	<div class="side-col" [@toggleSideDrawer]="'Side' + drawerState">
 		<app-side-drawer [drawerState]="drawerState" [routes]="routes"></app-side-drawer>
 	</div>
 </div>
-<div class="footer" style="background-color: red; height: 10em;">
+<div class="footer" style="background-color: #222; color: #FFF; height: 5em;">
 	Footer here
 </div>

@@ -31,23 +31,11 @@ export const slideInAnimation = trigger('routeAnimations', [
 ]);
 
 export const toggleSideDrawerAnimation = trigger('toggleSideDrawer', [
-	// state('close', style({
-	// 	// position: 'fixed',
-	// 	// top: '60px',
-	// 	right: '0',
-	// 	'min-height': '100vh',
-	// 	border: '1px solid #888'
-	// })),
-	// state('open', style({
-	// 	// position: 'fixed',
-	// 	// top: '60px',
-	// 	right: '0',
-	// 	'min-height': '100vh',
-	// 	border: '1px solid #888'
-	// })),
-	// transition('close => open', [
-	// 	// style({ left: '100%' }),
-	// 	animate('1s', style({ right: '100%' })),
-	// 	// style({ display: 'none' })
-	// ])
+	state('Sideclose', style({
+		transform: 'translateX(100%)'
+	})),
+	state('Sideopen', style({
+		transform: 'translateX(0%)'
+	})),
+	transition('Sideopen <=> Sideclose', animate(500))
 ])

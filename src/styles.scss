@@ -1,9 +1,18 @@
-* { box-sizing: border-box }
+@import 'variables';
+
+* {
+	box-sizing: border-box;
+}
 body {
 	min-height: 100vh;
+	max-width: 100vw;
+	overflow-x: hidden;
 	padding: 0;
 	margin: 0;
-	overflow-x: hidden;
-	max-width: 100vw;
 	font-family: Quicksand;
+}
+a.regular-text, a.regular-text:active, a.regular-text:focus, a.regular-text:hover, a.regular-text:any-link, a.regular-text:visited, a.regular-text:link {
+	text-decoration: none;
+	color: inherit;
+	cursor: default;
 }

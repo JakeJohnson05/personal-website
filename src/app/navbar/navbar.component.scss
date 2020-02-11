@@ -7,6 +7,29 @@ div#navbar {
 	align-items: center;
 	padding: 4px 8px;
 	background: #FFF;
+	height: 60px;
+
+	stroke: var(--primary);
+	color: transparent;
+	background-size: 200% 100%;
+	background-image: linear-gradient(to right, var(--primary) 50%, var(--secondary) 50%),
+										linear-gradient(to right, #FFF 50%, var(--tertiary) 50%);
+	transition: background-position .5s ease-out, stroke .5s;
+	-webkit-background-clip: text, border-box;
+	background-clip: text, border-box;
+	
+	& > a.logo {
+		cursor: pointer;
+		font-size: 160%;
+		& > div { line-height: .8em }
+		& > div.bottom { padding-left: 4px }
+	}
+	&.open {
+		background-position: 100% 0;
+		stroke: var(--secondary);
+		// color: var(--secondary);
+		// background: var(--tertiary);
+	}
 	
 	& > svg {
 		width: 42px;
@@ -20,26 +43,29 @@ div#navbar {
 		
 		& > path {
 			width: 100%;
-			stroke: currentColor;
+			// stroke: currentColor;
+			stroke: inherit;
 			stroke-width: 10;
 			stroke-linecap: round;
 			position: relative;
-			transition: transform .6s, transform-origin .6s;
+			transition: transform .6s, transform-origin .6s/* , stroke .6s */;
 		}
-		&.active {
+		&.open {
 			transform: rotate(-90deg);
-
-			& > path:first-child {
-				transform: rotate(45deg);
-				transform-origin: 18% 33%;
-			}
-			& > path:nth-child(2) {
-				transform: scaleX(0);
-				transform-origin: 50%;
-			}
-			& > path:nth-child(3) {
-				transform: rotate(-45deg);
-				transform-origin: 10% 65%;
+			& > path {
+				
+				&:first-child {
+					transform: rotate(45deg);
+					transform-origin: 18% 33%;
+				}
+				&:nth-child(2) {
+					transform: scaleX(0);
+					transform-origin: 50%;
+				}
+				&:nth-child(3) {
+					transform: rotate(-45deg);
+					transform-origin: 10% 65%;
+				}
 			}
 		}
 	}
